@@ -16,16 +16,18 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar _seekBar;
     public ArrayList<Song> songs;
     public int index = 0;
+    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findID();
         addSongs();
+        creatMedia();
         _play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, songs.get(index).getFile());
+
                 if(mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                     _play.setImageResource(R.mipmap.ic_1);
@@ -38,9 +40,34 @@ public class MainActivity extends AppCompatActivity {
         _next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                index += 1;
+                if(index >= songs.size()) {
+                    index = 0;
+                }
+                if(mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                creatMedia();
+                mediaPlayer.start();
+            }
+        });
+        _previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                index -= 1;
+                if(index < 0) {
+                    index = songs.size() - 1;
+                }
+                creatMedia();
+                mediaPlayer.start();
 
             }
         });
+    }
+    private void creatMedia() {
+        mediaPlayer = MediaPlayer.create(MainActivity.this, songs.get(index).getFile());
+        _nameSong.setText(songs.get(index).getName());
+        _singer.setText(songs.get(index).getSinger());
     }
     private void findID() {
         _play = findViewById(R.id.img_play);
