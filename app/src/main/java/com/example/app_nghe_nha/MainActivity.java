@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 creatMedia();
                 mediaPlayer.start();
+                _play.setImageResource(R.mipmap.ic_3);
             }
         });
         _previous.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 creatMedia();
                 mediaPlayer.start();
+                _play.setImageResource(R.mipmap.ic_3);
 
             }
         });
