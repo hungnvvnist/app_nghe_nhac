@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
                 if(index < 0) {
                     index = songs.size() - 1;
                 }
+                if(mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
                 creatMedia();
                 mediaPlayer.start();
 
